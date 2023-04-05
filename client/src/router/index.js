@@ -21,6 +21,16 @@ const router = createRouter({
       name: 'register',
       component: RegisterView
     },
+    {
+      path: '/tools/password-checker',
+      name: 'password-checker',
+      component: HomeView
+    },
+    {
+      path: '/tools/idx-assets-tracker',
+      name: 'idx-assets-tracker',
+      component: HomeView
+    },
   ]
 })
 
