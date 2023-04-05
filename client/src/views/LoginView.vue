@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from 'pinia'
 import { useAppStore } from '../stores/app'
+import { RouterLink } from 'vue-router'
 
 export default {
     data() {
@@ -78,10 +79,10 @@ export default {
                     </button>
                     <p class="mt-6 text-center text-neutral-800 dark:text-neutral-200">
                         Not a member?
-                        <button
+                        <RouterLink :to="{ name: 'register' }"
                             class="text-primary transition duration-150 ease-in-out hover:text-primary-600 focus:text-primary-600 active:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 dark:focus:text-primary-500 dark:active:text-primary-600">
                             Register
-                        </button>
+                        </RouterLink>
                     </p>
                 </form>
             </div>
