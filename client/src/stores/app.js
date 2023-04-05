@@ -24,6 +24,24 @@ export const useAppStore = defineStore('app', {
       } catch (error) {
         console.log(error);
       }
+    },
+
+    async registerHandler(value) {
+      try {
+        const { email, password } = value
+        const { data } = await axios.post(this.baseUrl + "/auth/register",
+          {
+            email,
+            password
+          }
+        )
+        this.$router.push({
+          name: "login"
+        })
+      } catch (error) {
+        console.log(error);
+      }
     }
+
   },
 })
