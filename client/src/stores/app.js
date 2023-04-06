@@ -10,6 +10,7 @@ export const useAppStore = defineStore('app', {
       message: "",
     },
     isLogin: false,
+    stocksData: [],
   }),
   getters: {},
   actions: {
@@ -80,6 +81,21 @@ export const useAppStore = defineStore('app', {
           this.passwordCheckerResult.status = "danger"
           this.passwordCheckerResult.message = `Leak found! this password has been used ${data[index].count} times`
         }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchStocks() {
+      try {
+        const { data } = await axios.get(this.baseUrl + "/stocks",
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.stocksData = data
       } catch (error) {
         console.log(error);
       }

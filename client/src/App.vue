@@ -11,8 +11,8 @@ export default {
 </script>
 
 <template>
-  <div class="flex">
-    <div class="w-1/5 h-screen fixed">
+  <div class="flex flex-row">
+    <div class="w-1/5 h-screen">
       <Sidebar />
     </div>
     <div class="w-4/5 ml-auto mr-24">
