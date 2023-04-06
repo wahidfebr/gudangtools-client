@@ -17,12 +17,14 @@ export default {
     // }
     computed: {
         getCurrentPrice() {
-            if (this.currentAssetsPriceData.length !== 0 && asset.length !== 0) {
-                const index = this.currentAssetsPriceData.findIndex(el => el.symbol === asset.ticker)
-                return this.asset.shares * this.currentAssetsPriceData[index].close
-            } else {
-                return 0
-            }
+            // if (this.currentAssetsPriceData.length !== 0 && this.asset.length !== 0) {
+            //     const index = this.currentAssetsPriceData.findIndex(el => el.symbol === asset.ticker)
+            //     return this.asset.shares * this.currentAssetsPriceData[index].close
+            // } else {
+            //     return 0
+            // }
+            
+            return 0
         }
     }
 }

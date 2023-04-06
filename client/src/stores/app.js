@@ -4,7 +4,7 @@ import { SHA1 } from 'crypto-js'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    baseUrl: "http://localhost:3000",
+    baseUrl: "https://gudangtools-server-production.up.railway.app",
     passwordCheckerResult: {
       status: "",
       message: "",
