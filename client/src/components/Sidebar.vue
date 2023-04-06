@@ -1,14 +1,25 @@
 <script>
 import { RouterLink } from 'vue-router'
+import { mapState } from 'pinia'
+import { useAppStore } from '../stores/app'
 
+export default {
+    computed: {
+        ...mapState(useAppStore, ['isLogin']),
+
+        memberEmail() {
+            return localStorage.email
+        }
+    }
+}
 </script>
 
 <template>
     <nav id="sidenav-main"
         class="absolute top-0 left-0 z-[1036] h-full w-60 -translate-x-full overflow-hidden bg-white shadow-[0_4px_12px_0_rgba(0,0,0,0.07),_0_2px_4px_rgba(0,0,0,0.05)] dark:bg-neutral-800 xl:data-[te-sidenav-hidden='false']:translate-x-0 sidenav-primary ps--active-y group/ps [overflow-anchor:none] [overflow-style:none] touch-none"
-        data-te-sidenav-init="" data-te-sidenav-position="absolute" data-te-sidenav-mode-breakpoint-over="0" data-te-sidenav-mode-breakpoint-side="xl"
-        data-te-sidenav-hidden="false" data-te-sidenav-mode="side" data-te-sidenav-content="#page-content"
-        data-te-sidenav-accordion="true"
+        data-te-sidenav-init="" data-te-sidenav-position="absolute" data-te-sidenav-mode-breakpoint-over="0"
+        data-te-sidenav-mode-breakpoint-side="xl" data-te-sidenav-hidden="false" data-te-sidenav-mode="side"
+        data-te-sidenav-content="#page-content" data-te-sidenav-accordion="true"
         style="width: 240px; height: 100vh; position: absolute; transition: all 0.3s linear 0s; transform: translateX(0%);">
         <RouterLink :to="{ name: 'home' }"
             class="mb-3 flex items-center justify-center rounded-md py-6 pr-3 text-lg font-medium outline-none dark:text-neutral-100"
@@ -17,6 +28,17 @@ import { RouterLink } from 'vue-router'
                 <img src="https://cdn-icons-png.flaticon.com/512/1505/1505516.png" class="mr-2 h-[20px]" alt="logo">
             </picture>
             Gudang Tools
+        </RouterLink>
+        <RouterLink :to="{ name: 'login' }" v-if="!isLogin"
+            class="bg-primary text-white text-xs uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+            type="button">
+            Login
+        </RouterLink>
+        <p class="text-sm text-left ml-3 mb-2" v-if="isLogin">Welcome, {{ memberEmail }}</p>
+        <RouterLink :to="{ name: 'logout' }" v-if="isLogin"
+            class="bg-primary text-white text-xs uppercase px-4 py-2 rounded shadow hover:shadow-md outline-none focus:outline-none lg:mr-1 lg:mb-0 ml-3 mb-3"
+            type="button">
+            Logout
         </RouterLink>
         <ul class="relative m-0 list-none px-[0.2rem] pb-80" data-te-sidenav-menu-ref="">
             <li class="relative">

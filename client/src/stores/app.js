@@ -8,10 +8,19 @@ export const useAppStore = defineStore('app', {
     passwordCheckerResult: {
       status: "",
       message: "",
-    }
+    },
+    isLogin: false,
   }),
   getters: {},
   actions: {
+    checkToken() {
+      if (localStorage.access_token) {
+        this.isLogin = true
+      } else {
+        this.isLogin = false
+      }
+    },
+
     async loginHandler(value) {
       try {
         const { email, password } = value

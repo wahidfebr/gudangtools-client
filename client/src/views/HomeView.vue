@@ -27,7 +27,7 @@
                                 <div class="md:flex md:flex-row">
                                     <div class="mx-auto mb-6 flex w-36 items-center justify-center md:mx-0 md:w-96 lg:mb-0">
                                         <img src="https://lh3.googleusercontent.com/pw/AMWts8CVzxNYFjw2CKWdU5eeeqNg4GEjwAyBUppz1xck8rj11ITMaND14P-_ej2VjXJGoNmke6E7BIrCtQhfO0TJ_TtSYC9PHq3BH5KO1xjACgFyrP879WVaodtreVR6IHJ6LLKCeMsmCZeqOAcgbN0TTHD3=w703-h937-s-no?authuser=0"
-                                            class="rounded-full shadow-md dark:shadow-black/30" alt="woman avatar" />
+                                            class="rounded-full shadow-md dark:shadow-black/30" alt="creators avatar" />
                                     </div>
                                     <div class="md:ml-6">
                                         <p class="mb-6 font-light text-neutral-500 dark:text-neutral-300">
