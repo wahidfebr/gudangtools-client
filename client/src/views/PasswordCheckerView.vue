@@ -1,5 +1,5 @@
 <script>
-import { mapState } from 'pinia'
+import { mapState, mapActions } from 'pinia'
 import { useAppStore } from '../stores/app'
 
 export default {
@@ -12,6 +12,8 @@ export default {
         }
     },
     methods: {
+        ...mapActions(useAppStore, ['passwordCheckerHandler']),
+
         toggleShowPassword() {
             this.showPassword = !this.showPassword
         }
