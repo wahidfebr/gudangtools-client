@@ -1,5 +1,5 @@
 <script>
-import { mapActions, mapState } from 'pinia'
+import { mapState } from 'pinia'
 import { useAppStore } from '../stores/app'
 
 export default {
@@ -7,11 +7,14 @@ export default {
         return {
             form: {
                 password: ""
-            }
+            },
+            showPassword: false,
         }
     },
     methods: {
-        ...mapActions(useAppStore, ['passwordCheckerHandler']),
+        toggleShowPassword() {
+            this.showPassword = !this.showPassword
+        }
     },
     computed: {
         ...mapState(useAppStore, ['passwordCheckerResult']),
@@ -25,7 +28,12 @@ export default {
                 default:
                     return ""
             }
-        }
+        },
+
+        inputType() {
+            return this.showPassword ? "text" : "password"
+        },
+
     }
 }
 </script>
@@ -36,9 +44,14 @@ export default {
     <h4 class="mb-5 text-lg font-semibold leading-normal">Evaluate your password:</h4>
     <form @submit.prevent="passwordCheckerHandler(form)" class="mb-5">
         <div class="relative mb-6" data-te-input-wrapper-init="">
-            <input type="text" v-model="form.password"
+            <input :type="inputType" v-model="form.password"
                 class="peer block min-h-[50px] w-full text-lg font-bold rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&amp;:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
                 id="password" placeholder="Type your password">
+            <button @click="toggleShowPassword"
+                class="absolute top-0 right-0 h-full w-12 flex items-center justify-center text-gray-400 hover:text-gray-500"
+                type="button">
+                <i class="fas fa-eye"></i>
+            </button>
             <label for="password"
                 class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
                 style="margin-left: 0px;">Type your password
