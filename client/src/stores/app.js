@@ -11,6 +11,7 @@ export const useAppStore = defineStore('app', {
     },
     isLogin: false,
     stocksData: [],
+    assetsData: [],
   }),
   getters: {},
   actions: {
@@ -119,6 +120,21 @@ export const useAppStore = defineStore('app', {
         this.$router.push({
           name: "idx-assets-tracker"
         })
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchAssets() {
+      try {
+        const { data } = await axios.get(this.baseUrl + "/assets",
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.assetsData = data
       } catch (error) {
         console.log(error);
       }
