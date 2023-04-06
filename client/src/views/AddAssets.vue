@@ -3,8 +3,16 @@ import { mapActions, mapState } from 'pinia'
 import { useAppStore } from '../stores/app'
 
 export default {
+    data() {
+        return {
+            form: {
+                shares: null,
+                id: 0
+            }
+        }
+    },
     methods: {
-        ...mapActions(useAppStore, ['fetchStocks']),
+        ...mapActions(useAppStore, ['fetchStocks', 'addAsset']),
     },
     computed: {
         ...mapState(useAppStore, ['stocksData'])
@@ -17,17 +25,17 @@ export default {
 
 <template>
     <div class="rounded-lg bg-white dark:border-neutral-600 dark:bg-neutral-800">
-        <div class="p-4 flex justify-center mt-[200px]">
+    <div class="p-4 flex justify-center mt-[200px]">
 
-            <div class="block max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700 w-full">
-                <h1 class="mb-5 text-3xl text-center font-semibold leading-normal">Add Stock</h1>
-                <form @submit.prevent="">
+        <div class="block max-w-md rounded-lg bg-white p-6 shadow-lg dark:bg-neutral-700 w-full">
+            <h1 class="mb-5 text-3xl text-center font-semibold leading-normal">Add Stock</h1>
+            <form @submit.prevent="addAsset(form)">
                     <div class="relative mb-6" data-te-input-wrapper-init="">
-                        <input type="number"
-                            class="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&amp;:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
-                            id="shares" placeholder="Shares">
-                        <label for="shares"
-                            class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
+                        <input type="number" v-model="form.shares"
+                        class="peer block min-h-[auto] w-full rounded border-0 bg-transparent py-[0.32rem] px-3 leading-[1.6] outline-none transition-all duration-200 ease-linear focus:placeholder:opacity-100 data-[te-input-state-active]:placeholder:opacity-100 motion-reduce:transition-none dark:text-neutral-200 dark:placeholder:text-neutral-200 [&amp;:not([data-te-input-placeholder-active])]:placeholder:opacity-0"
+                        id="shares" placeholder="Shares">
+                    <label for="shares"
+                        class="pointer-events-none absolute top-0 left-3 mb-0 max-w-[90%] origin-[0_0] truncate pt-[0.37rem] leading-[1.6] text-neutral-500 transition-all duration-200 ease-out peer-focus:-translate-y-[0.9rem] peer-focus:scale-[0.8] peer-focus:text-primary peer-data-[te-input-state-active]:-translate-y-[0.9rem] peer-data-[te-input-state-active]:scale-[0.8] motion-reduce:transition-none dark:text-neutral-200 dark:peer-focus:text-neutral-200"
                             style="margin-left: 0px;">Shares
                         </label>
                         <div class="group flex absolute left-0 top-0 w-full max-w-full h-full text-left pointer-events-none"
@@ -41,7 +49,21 @@ export default {
                         </div>
                     </div>
                     <div class="relative mb-6" data-te-input-wrapper-init="">
-                        <select data-te-select-init class="w-full">
+                        <!-- <label for="stock">Choose a stock:</label>
+                                    <input list="stock" id="stock" name="stock">
+                                    <datalist id="stock">
+                                        <option v-for="stock in stocksData" :value="stock.id">{{ stock.ticker }} - {{ stock.name }}
+                                        </option>
+                                    </datalist> -->
+
+                        <!-- <input list="stock" name="stock" id="stock">
+                                                    <datalist id="stock">
+                                                        <option v-for="stock in stocksData" :value="stock.id">{{ stock.ticker }} - {{ stock.name }}
+                                                        </option>
+                                                    </datalist> -->
+
+                        <select data-te-select-init class="w-full" v-model="form.id">
+                            <option value="0" selected disabled>-- Select Stock --</option>
                             <option v-for="stock in stocksData" :value="stock.id">{{ stock.ticker }} - {{ stock.name }}
                             </option>
                         </select>

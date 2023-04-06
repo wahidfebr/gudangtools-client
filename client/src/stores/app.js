@@ -101,5 +101,28 @@ export const useAppStore = defineStore('app', {
       }
     },
 
+    async addAsset(value) {
+      try {
+        const { shares, id } = value
+        const { data } = await axios.post(this.baseUrl + "/assets",
+          {
+            shares,
+            id
+          }
+          ,
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.$router.push({
+          name: "idx-assets-tracker"
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
   },
 })
