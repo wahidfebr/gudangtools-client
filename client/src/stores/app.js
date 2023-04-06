@@ -10,6 +10,9 @@ export const useAppStore = defineStore('app', {
       message: "",
     },
     isLogin: false,
+    stocksData: [],
+    assetsData: [],
+    currentAssetsPriceData: [],
   }),
   getters: {},
   actions: {
@@ -80,6 +83,74 @@ export const useAppStore = defineStore('app', {
           this.passwordCheckerResult.status = "danger"
           this.passwordCheckerResult.message = `Leak found! this password has been used ${data[index].count} times`
         }
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchStocks() {
+      try {
+        const { data } = await axios.get(this.baseUrl + "/stocks",
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.stocksData = data
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async addAsset(value) {
+      try {
+        const { shares, id } = value
+        const { data } = await axios.post(this.baseUrl + "/assets",
+          {
+            shares,
+            id
+          }
+          ,
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.$router.push({
+          name: "idx-assets-tracker"
+        })
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchAssets() {
+      try {
+        const { data } = await axios.get(this.baseUrl + "/assets",
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.assetsData = data
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchCurrentAssetsPrice() {
+      try {
+        const { data } = await axios.get(this.baseUrl + "/goapi/prices",
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.currentAssetsPriceData = data
       } catch (error) {
         console.log(error);
       }

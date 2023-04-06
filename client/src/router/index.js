@@ -6,6 +6,8 @@ import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
 import PasswordCheckerView from "../views/PasswordCheckerView.vue"
+import IdxAssetsTracker from "../views/IdxAssetsTracker.vue"
+import AddAssets from "../views/AddAssets.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -37,7 +39,12 @@ const router = createRouter({
     {
       path: '/tools/idx-assets-tracker',
       name: 'idx-assets-tracker',
-      component: HomeView
+      component: IdxAssetsTracker
+    },
+    {
+      path: '/tools/idx-assets-tracker/add',
+      name: 'add-idx-assets',
+      component: AddAssets
     },
   ]
 })
