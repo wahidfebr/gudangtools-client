@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import LoginView from '../views/LoginView.vue'
 import RegisterView from '../views/RegisterView.vue'
+import PasswordCheckerView from "../views/PasswordCheckerView.vue"
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,7 +25,7 @@ const router = createRouter({
     {
       path: '/tools/password-checker',
       name: 'password-checker',
-      component: HomeView
+      component: PasswordCheckerView
     },
     {
       path: '/tools/idx-assets-tracker',

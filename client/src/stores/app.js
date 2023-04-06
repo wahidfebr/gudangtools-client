@@ -1,9 +1,14 @@
 import { defineStore } from 'pinia'
 import axios from "axios"
+import { SHA1 } from 'crypto-js'
 
 export const useAppStore = defineStore('app', {
   state: () => ({
-    baseUrl: "http://localhost:3000"
+    baseUrl: "http://localhost:3000",
+    passwordCheckerResult: {
+      status: "",
+      message: "",
+    }
   }),
   getters: {},
   actions: {
@@ -41,7 +46,35 @@ export const useAppStore = defineStore('app', {
       } catch (error) {
         console.log(error);
       }
-    }
+    },
+
+    async passwordCheckerHandler(value) {
+      try {
+        const { password } = value
+        if (!password.trim()) return
+
+        const shasum = SHA1(password).toString().toUpperCase()
+        const prefix = shasum.slice(0, 5)
+        const suffix = shasum.slice(5)
+        const { data } = await axios.get(this.baseUrl + "/pwned/password",
+          {
+            params: {
+              prefix
+            }
+          }
+        )
+        const index = data.findIndex(el => el.suffix === suffix)
+        if (index === -1) {
+          this.passwordCheckerResult.status = "safe"
+          this.passwordCheckerResult.message = "No data leak found, password is safe"
+        } else {
+          this.passwordCheckerResult.status = "danger"
+          this.passwordCheckerResult.message = `Leak found! this password has been used ${data[index].count} times`
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    },
 
   },
 })
