@@ -1,7 +1,30 @@
 <script>
 
 export default {
-    props: ["asset"],
+    props: ["asset", "currentAssetsPriceData"],
+    // data() {
+    //     return {
+    //         currentPrice: 0
+    //     }
+    // },
+    // watch: {
+    //     currentAssetsPriceData() {
+    //         if (this.currentAssetsPriceData.length !== 0 && this.asset.length !== 0) {
+    //             const index = this.currentAssetsPriceData.findIndex(el => el.symbol === asset.ticker)
+    //             this.currentPrice = this.asset.shares * this.currentAssetsPriceData[index].close
+    //         }
+    //     }
+    // }
+    computed: {
+        getCurrentPrice() {
+            if (this.currentAssetsPriceData.length !== 0 && asset.length !== 0) {
+                const index = this.currentAssetsPriceData.findIndex(el => el.symbol === asset.ticker)
+                return this.asset.shares * this.currentAssetsPriceData[index].close
+            } else {
+                return 0
+            }
+        }
+    }
 }
 </script>
 
@@ -21,6 +44,9 @@ export default {
                 </p>
                 <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
                     Initial Value: Rp. {{ asset.initialPrice * asset.shares }}
+                </p>
+                <p class="mb-4 text-base text-neutral-600 dark:text-neutral-200">
+                    Today Value: Rp. {{ getCurrentPrice }}
                 </p>
             </div>
         </div>

@@ -10,13 +10,14 @@ export default {
         AssetCard
     },
     methods: {
-        ...mapActions(useAppStore, ['fetchAssets']),
+        ...mapActions(useAppStore, ['fetchAssets', 'fetchCurrentAssetsPrice']),
     },
     computed: {
-        ...mapState(useAppStore, ['assetsData'])
+        ...mapState(useAppStore, ['assetsData', 'currentAssetsPriceData'])
     },
     created() {
         this.fetchAssets()
+        this.fetchCurrentAssetsPrice()
     }
 }
 </script>
@@ -28,6 +29,7 @@ export default {
         Add Stock</RouterLink>
 
     <div class="flex flex-wrap gap-5 mt-24">
-        <AssetCard v-for="asset in assetsData" :key="asset.id" :asset="asset" />
+        <AssetCard v-for="asset in assetsData" :key="asset.id" :asset="asset"
+            :currentAssetsPriceData="currentAssetsPriceData" />
     </div>
 </template>

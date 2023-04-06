@@ -12,6 +12,7 @@ export const useAppStore = defineStore('app', {
     isLogin: false,
     stocksData: [],
     assetsData: [],
+    currentAssetsPriceData: [],
   }),
   getters: {},
   actions: {
@@ -135,6 +136,21 @@ export const useAppStore = defineStore('app', {
           }
         )
         this.assetsData = data
+      } catch (error) {
+        console.log(error);
+      }
+    },
+
+    async fetchCurrentAssetsPrice() {
+      try {
+        const { data } = await axios.get(this.baseUrl + "/goapi/prices",
+          {
+            headers: {
+              access_token: localStorage.access_token
+            }
+          }
+        )
+        this.currentAssetsPriceData = data
       } catch (error) {
         console.log(error);
       }
